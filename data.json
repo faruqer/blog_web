@@ -2,21 +2,11 @@
   {
     "uname": "a",
     "email": "a@gmail.com",
-    "passwd": "12"
+    "passwd": "x"
   },
   {
     "uname": "erg",
     "email": "a@gmail.com",
-    "passwd": "11"
-  },
-  {
-    "uname": "a",
-    "email": "a@gmail.com",
-    "passwd": "1"
-  },
-  {
-    "uname": "a",
-    "email": "a@gmail.com",
-    "passwd": "1"
+    "passwd": "s"
   }
 ]

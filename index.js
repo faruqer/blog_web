@@ -8,8 +8,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'))
 
 app.get("/signup", (req, res) => {
-    res.render("sign_up")
-});
+    res.render("sign_up", { message: false });
+})
 
 app.post("/signup", (req, res) => {
     const uname = req.body.uname
@@ -29,11 +29,15 @@ app.post("/signup", (req, res) => {
 
         const dataFix = JSON.parse(data)
         for (let i = 0; i < dataFix.length; i++) {
-            if (newData.uname === dataFix[i].uname || newData.email === dataFix[i].email) {
-                // Set a message in res.locals to be displayed in the template
-                res.locals.message = "This account already exists";
-                // Render the signup page with the message
-                return res.render("sign_up");
+            if (newData.uname === dataFix[i].uname) {
+                const message = "This username already exists"
+                return res.render("sign_up", { message: message })
+            }
+        }
+        for (let i = 0; i < dataFix.length; i++) {
+            if (newData.email === dataFix[i].email) {
+                const message = "This email is taken"
+                return res.render("sign_up", { message: message })
             }
         }
         dataFix.push(newData)
@@ -51,31 +55,36 @@ app.post("/signup", (req, res) => {
 })
 
 app.get("/signin", (req, res) => {
-    res.render("sign_in")
+    res.render("sign_in", {message:false})
 });
 
 app.post("/signin", (req, res) => {
     const uname = req.body.uname
     const passwd = req.body.password
 
+
     fs.readFile("data.json", "utf8", (err, data) => {
         if (err) {
             console.error(err)
             return res.status(500).send("Internal Server Error")
         }
-
+        
         const userData = JSON.parse(data)
-
+        let userFound=false
         for (let i = 0; i < userData.length; i++) {
-            if (uname === userData[i].uname && passwd === userData[i].passwd) {
-                return res.render("home")
+            if (uname === userData[i].uname && passwd===userData[i].passwd) {
+                userFound=true
+                break
             }
         }
-
-        res.render("sign_in_error")
+        if (userFound){
+            return res.render("home")
+        }else{
+            const message = "Incorrect Username or Password"
+            return res.render("sign_in", { message: message })
+        }
     })
 })
-
 app.listen(4040, () => {
     console.log(`Server running on port 4040.`)
 })
