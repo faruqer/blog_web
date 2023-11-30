@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up</title>
+  <link rel="stylesheet" href="/style.css">
+     
+</head>
+<body>
+  <form id="registrationForm" action="/signup" method="post">
+    <h2>Sign Up</h2>
+    <input type="text" name="uname" placeholder="User name" required autofocus>
+    <input type="email" name="email" placeholder="Email" required>
+    <input type="password" name="password" id="password" placeholder="Password" required>
+    <input type="password" name="conforme" id="conforme" placeholder="Confirm Password" required>
+    <p id="error" style="color: red;"></p>
+  
+    <button type="button" onclick="validatePassword()">Sign Up</button>
+    <a href="signin">Have an account?</a>
+  </form>
+
+  <script>
+    function validatePassword() {
+      var password = document.getElementById('password').value
+      var confirme = document.getElementById('conforme').value
+      var error = document.getElementById('error')
+
+      if (password !== confirme) {
+        error.textContent = "Passwords do not match. Please try again!"
+      } else {
+        error.textContent = ''
+        document.getElementById('registrationForm').submit()
+      }
+    }
+  </script>
+</body>
+</html>

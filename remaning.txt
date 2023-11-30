@@ -1,0 +1,2 @@
+server side vallidation of the password
+checking if the account exist

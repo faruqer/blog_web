@@ -1,0 +1,22 @@
+[
+  {
+    "uname": "a",
+    "email": "a@gmail.com",
+    "passwd": "12"
+  },
+  {
+    "uname": "erg",
+    "email": "a@gmail.com",
+    "passwd": "11"
+  },
+  {
+    "uname": "a",
+    "email": "a@gmail.com",
+    "passwd": "1"
+  },
+  {
+    "uname": "a",
+    "email": "a@gmail.com",
+    "passwd": "1"
+  }
+]
