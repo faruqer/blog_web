@@ -11,10 +11,19 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'))
 
 let posts=["xujfgihf", "dhgfysb", "xidsusgfsd", "dgfsydfg"]
+
+const postSchema= new mongoose.Schema({
+    title: String,
+    content: String,
+    date: Date,
+
+})
+
 const userSchema =new mongoose.Schema({
     userName: String,
     email: String,
-    password: String
+    password: String,
+    post:[postSchema]
 })
 
 const User= mongoose.model("User", userSchema)
