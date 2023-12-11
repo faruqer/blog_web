@@ -1,4 +1,8 @@
-server side vallidation of the password
-checking if the account exist
-setting the error message of signin page
+additional content in each page
+customizing each page
+post filteration
+other posts randomly
+Add social media sharing buttons to encourage users to share your content.
+
+
 

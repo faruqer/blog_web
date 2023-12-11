@@ -1,57 +1,61 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const fs = require("fs");
+const mongoose = require("mongoose");
+
+
 
 const app = express()
+mongoose.connect("mongodb+srv://faruq:faruq120910@cluster0.qnzsgnz.mongodb.net/userDB", {useNewUrlParser: true})
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'))
 
+
+const userSchema =new mongoose.Schema({
+    userName: String,
+    email: String,
+    password: String
+})
+
+const User= mongoose.model("User", userSchema)
+let isAuthonticated=false
+app.get("/", (req, res)=>{
+    res.render("root")
+})
 app.get("/signup", (req, res) => {
     res.render("sign_up", { message: false });
 })
 
 app.post("/signup", (req, res) => {
-    const uname = req.body.uname
+    const userName = req.body.userName
     const email = req.body.email
-    const passwd = req.body.password
-    const newData = {
-        uname: uname,
-        email: email,
-        passwd: passwd
-    }
+    const password = req.body.password
 
-    fs.readFile("data.json", 'utf8', (err, data) => {
-        if (err) {
-            console.error(err)
-            return res.status(500).send("Internal Server Error")
-        }
-
-        const dataFix = JSON.parse(data)
-        for (let i = 0; i < dataFix.length; i++) {
-            if (newData.uname === dataFix[i].uname) {
-                const message = "This username already exists"
-                return res.render("sign_up", { message: message })
+    User.find()
+    .then((users)=>{
+        for (let i=0; i<users.length; i++){
+            if (users[i].userName===userName){
+                return res.render("sign_up", {message:"This user name is alredy take."})
+            }else if(users[i].email===email){
+                return res.render("sign_up", {message:"This email is alredy take."}) 
             }
         }
-        for (let i = 0; i < dataFix.length; i++) {
-            if (newData.email === dataFix[i].email) {
-                const message = "This email is taken"
-                return res.render("sign_up", { message: message })
-            }
-        }
-        dataFix.push(newData)
-        const finalData = JSON.stringify(dataFix, null, 2)
-
-        fs.writeFile("data.json", finalData, (err) => {
-            if (err) {
-                console.error(err)
-                return res.status(500).send("Internal Server Error")
-            }
-            console.log("Data written to data.json")
-            res.render("home")
+        const newData = new User ({
+            userName: userName,
+            email: email,
+            password: password
         })
+        return newData.save()
+        .then(()=>{
+            isAuthonticated=true
+            res.redirect("/home")
+        })
+        
     })
+    .catch((err)=>{
+        console.log(err)
+    })
+    
 })
 
 app.get("/signin", (req, res) => {
@@ -59,32 +63,47 @@ app.get("/signin", (req, res) => {
 });
 
 app.post("/signin", (req, res) => {
-    const uname = req.body.uname
-    const passwd = req.body.password
-
-
-    fs.readFile("data.json", "utf8", (err, data) => {
-        if (err) {
-            console.error(err)
-            return res.status(500).send("Internal Server Error")
-        }
-        
-        const userData = JSON.parse(data)
-        let userFound=false
-        for (let i = 0; i < userData.length; i++) {
-            if (uname === userData[i].uname && passwd===userData[i].passwd) {
-                userFound=true
-                break
+    const userName = req.body.uname
+    const password = req.body.password
+    User.find()
+        .then((users)=>{
+            for (let i=0; i<users.length; i++){
+                if (users[i].userName===userName){
+                   if(users[i].password===password){
+                    
+                        isAuthonticated=true
+                        res.redirect("/home")
+                   } 
+                }
             }
-        }
-        if (userFound){
-            return res.render("home")
-        }else{
-            const message = "Incorrect Username or Password"
-            return res.render("sign_in", { message: message })
-        }
-    })
+            res.render("sign_in", {message:"Incorrect user name or password"})
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
 })
+
+app.get("/home", (req, res)=>{
+    if(isAuthonticated){
+    const post ="";
+    res.render("home", {post:post}) 
+    }else{
+        res.redirect("/signin")
+    }
+})
+app.get("/post", (req, res)=>{
+    if(isAuthonticated){
+        res.render("post")
+    }else{
+        res.redirect("/signin")
+    }
+})
+
+app.post("/post", (req, res)=>{
+    const post=req.body.post
+    res.render("home", {post:post})
+})
+
 app.listen(4040, () => {
     console.log(`Server running on port 4040.`)
 })
