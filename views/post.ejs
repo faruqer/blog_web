@@ -1,14 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>POST BLOG</title>
-</head>
-<body>
+<%- include ("header", {pageTitle: 'Post page'}) %>
+
     <form action="/post" method="post">
         <input type="textarea", name="post", placeholder="Put your post here">
         <button type="submit">POST</button>
     </form>
-</body>
-</html>
+
+<%- include ("footer") %>

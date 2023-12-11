@@ -5,12 +5,12 @@ const mongoose = require("mongoose");
 
 
 const app = express()
-mongoose.connect("mongodb+srv://faruq:" + process.env.MONGODB_PASSWORD +"@cluster0.qnzsgnz.mongodb.net/userDB", {useNewUrlParser: true})
+mongoose.connect("mongodb+srv://faruq:faruq120910@cluster0.qnzsgnz.mongodb.net/userDB", {useNewUrlParser: true})
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'))
 
-
+let posts=["xujfgihf", "dhgfysb", "xidsusgfsd", "dgfsydfg"]
 const userSchema =new mongoose.Schema({
     userName: String,
     email: String,
@@ -85,8 +85,7 @@ app.post("/signin", (req, res) => {
 
 app.get("/home", (req, res)=>{
     if(isAuthonticated){
-    const post ="";
-    res.render("home", {post:post}) 
+    res.render("home", {posts:posts}) 
     }else{
         res.redirect("/signin")
     }
@@ -100,8 +99,8 @@ app.get("/post", (req, res)=>{
 })
 
 app.post("/post", (req, res)=>{
-    const post=req.body.post
-    res.render("home", {post:post})
+    posts.push(req.body.post)
+    res.render("home", {posts:posts})
 })
 
 app.listen(4040, () => {
