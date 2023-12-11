@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 
 
 const app = express()
-mongoose.connect("mongodb+srv://faruq:faruq120910@cluster0.qnzsgnz.mongodb.net/userDB", {useNewUrlParser: true})
+mongoose.connect("mongodb+srv://faruq:" + process.env.MONGODB_PASSWORD +"@cluster0.qnzsgnz.mongodb.net/userDB", {useNewUrlParser: true})
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'))
