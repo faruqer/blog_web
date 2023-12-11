@@ -1,18 +1,22 @@
-<%- include ("header", {pageTitle: "Home page"}) %>
+<%- include("header", { pageTitle: "Home page" }) %>
 
-    <div class="container">
-        <section class="main-content">
-            <% for (let i=0; i<posts.length; i++){%>
-                <article>
-                    <p><%=posts[i]%></p>
-                </article>
-            <%}%>
-        </section>
+<div class="container">
+    <section class="main-content">
+        <% for (let i=0; i<posts.length; i++){ %>
+            <article>
+                <p>Author: <%= posts[i].author %></p>
+                <h2><%= posts[i].title %></h2>
+                <p><%= posts[i].content %></p>
+                <p><%= posts[i].date %></p>
+            </article>
+        <% } %>
+    </section>
 
-        <aside class="sidebar">
-            <p>Profile Pic</p>
-        </aside>
-    </div>
+    <aside class="sidebar">
+        <p>Profile Pic</p>
+    </aside>
+</div>
 
-<%- include ("footer") %>
+<%- include("footer") %>
+
     
