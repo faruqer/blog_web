@@ -3,11 +3,17 @@
 <div class="container">
     <section class="main-content">
         <% for (let i=0; i<posts.length; i++){ %>
-            <article>
-                <p>Author: <%= posts[i].author %></p>
-                <h2><%= posts[i].title %></h2>
-                <p><%= posts[i].content %></p>
-                <p><%= posts[i].date %></p>
+            <article class="post-card">
+                <div class="post-header">
+                    <div class="author-info">
+                        <p class="author-name"><%= posts[i].author %></p>
+                        <h2 class="post-title"><%= posts[i].title %></h2>
+                    </div>
+                    <div class="date-info">
+                        <p class="post-date"><%= posts[i].date %></p>
+                    </div>
+                </div>
+                <p class="post-content"><%= posts[i].content %></p>
             </article>
         <% } %>
     </section>
@@ -18,5 +24,3 @@
 </div>
 
 <%- include("footer") %>
-
-    
