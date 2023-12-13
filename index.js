@@ -10,7 +10,22 @@ app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'))
 
-let posts=["xujfgihf", "dhgfysb", "xidsusgfsd", "dgfsydfg"]
+let posts=[{
+    author:"osama",
+    title:"test3",
+    content:"dosgvsidhdsisgsjd",
+    date:"4-87"
+}, {
+    author:"kebe",
+    title:"test2",
+    content:"dosgvsidhdsisgsjdajsvsjgshs sjsusb ssjvss ss siss. d sis d dgdddhus s snssksbsndhd shsj i.   j. dbsjs. dbs shs shsksudbwkd f",
+    date:"4-37"
+},{
+    author:"abe",
+    title:"test1",
+    content:"dosgvsidhdsisgsjd",
+    date:"2-34"
+}]
 
 const postSchema= new mongoose.Schema({
     title: String,
@@ -23,6 +38,7 @@ const userSchema =new mongoose.Schema({
     userName: String,
     email: String,
     password: String,
+    profile: String,
     post:[postSchema]
 })
 

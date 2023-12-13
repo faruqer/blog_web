@@ -8,7 +8,7 @@ body {
 header {
     background-color: #333;
     color: #fff;
-    padding: 10px;
+    padding: 20px;
     text-align: center;
 }
 
@@ -20,35 +20,71 @@ nav {
 
 nav a {
     text-decoration: none;
-    color: #fff;
-    margin: 0 10px;
+    color: rgb(244, 246, 244);
+    margin: 0 15px;
+    font-weight: bold;
+    font-size: 16px;
 }
 
-.main-content {
+.container {
     max-width: 800px;
     margin: 20px auto;
 }
 
-article {
+.post-card {
     background-color: #fff;
-    padding: 15px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    margin-bottom: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.author-info {
+    flex: 1;
+}
+
+.author-name {
+    margin: 0;
+    font-weight: bolder;
+}
+
+.post-title {
+    margin: 5px 0;
+}
+
+.date-info {
+    text-align: right;
+    font-size: 12px;
+    color: #888;
+    padding: 0;
+}
+
+.post-date {
+    margin-bottom: 0;
+}
+
+.post-content {
+    margin: 10px 0;
 }
 
 .sidebar {
     background-color: #eee;
-    padding: 15px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
 
 footer {
     background-color: #333;
     color: #fff;
     text-align: center;
-    padding: 10px;
+    padding: 20px;
     position: fixed;
     bottom: 0;
     width: 100%;
