@@ -52,6 +52,7 @@ nav a {
 .author-name {
     margin: 0;
     font-weight: bolder;
+    display: inline;
 }
 
 .post-title {
