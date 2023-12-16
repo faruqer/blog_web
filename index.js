@@ -42,6 +42,9 @@ let posts=[{
     date:"2-34"
 }]
 
+const userData={
+    userName:"Abe"
+}
 const postSchema= new mongoose.Schema({
     title: String,
     content: String,
@@ -73,7 +76,7 @@ app.get("/signin", (req, res) => {
 
 app.get("/home", (req, res)=>{
     if(isAuthonticated){
-    res.render("home", {posts:posts}) 
+    res.render("home", {posts:posts, userData:userData.userName}) 
     }else{
         res.redirect("/signin")
     }

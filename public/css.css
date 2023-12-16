@@ -26,6 +26,9 @@ nav a {
     font-size: 16px;
 }
 
+.nav {
+    margin-left: 200px;
+}
 .container {
     max-width: 800px;
     margin: 20px auto;
@@ -39,6 +42,17 @@ nav a {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
 
+.profilePic {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-left: 400px;
+}
+
+.user-name {
+    font-weight: bolder;
+    font-style: italic;
+}
 .post-header {
     display: flex;
     justify-content: space-between;
@@ -63,6 +77,11 @@ nav a {
     width: 20px;
     height: 20px;
     border-radius: 10px;
+}
+
+.account p{
+    display: inline;
+    
 }
 .date-info {
     text-align: right;
