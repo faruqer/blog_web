@@ -12,8 +12,10 @@ app.use(express.static('public'))
 
 
 const postSchema = new mongoose.Schema({
+    userName: String,
     title:String,
     content: String,
+    date: { type: Date, default: Date.now }
   });
 
   const userDataSchema = new mongoose.Schema({
@@ -51,12 +53,14 @@ app.get("/signin", (req, res) => {
 
 app.get("/home", (req, res)=>{
     if(isAuthenticated){
-        User.find()
+       Post.find().sort({"date": -1})
             .then((datas)=>{
+                console.log(datas)
                 let posts=[]
-                datas.forEach(data=>{
-                    posts.push(data.posts)
+                datas.forEach((data)=>{
+                    posts.push(data)
                 })
+                console.log(posts)
                 res.render("home", {userName:currentUser, posts:posts})
             })
         
@@ -64,7 +68,6 @@ app.get("/home", (req, res)=>{
         res.redirect("/signin")
     }
 })
-
 
 app.post("/signup", (req, res) => {
     const userName = req.body.userName
@@ -140,6 +143,7 @@ app.post("/post", (req, res)=>{
         if (user){
             user.posts.push(newPost)
             user.save()
+            Post.insertMany({userName:currentUser, title:req.body.title, content:req.body.content})
             res.redirect("/home") 
         }else{
             return null
