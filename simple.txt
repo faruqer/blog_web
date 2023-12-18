@@ -1,0 +1,62 @@
+let posts=[{
+    author:"osama",
+    title:"test3",
+    content:"dosgvsidhdsisgsjd",
+    date:"4-87"
+}, {
+    author:"kebe",
+    title:"test2",
+    content:"dosgvsidhdsisgsjdajsvsjgshs sjsusb ssjvss ss siss. d sis d dgdddhus s snssksbsndhd shsj i.   j. dbsjs. dbs shs shsksudbwkd f",
+    date:"4-37"
+},{
+    author:"abe",
+    title:"test1",
+    content:"dosgvsidhdsisgsjd",
+    date:"2-34"
+},{
+    author:"osama",
+    title:"test3",
+    content:"dosgvsidhdsisgsjd",
+    date:"4-87"
+}, {
+    author:"kebe",
+    title:"test2",
+    content:"dosgvsidhdsisgsjdajsvsjgshs sjsusb ssjvss ss siss. d sis d dgdddhus s snssksbsndhd shsj i.   j. dbsjs. dbs shs shsksudbwkd f",
+    date:"4-37"
+},{
+    author:"abe",
+    title:"test1",
+    content:"dosgvsidhdsisgsjd",
+    date:"2-34"
+}]
+
+app.get("/history", (req, res)=>{
+    if (isAuthenticated){
+        res.render("history")
+    }else{
+        res.redirect("signin")
+    }
+})
+
+app.get("/account", (req, res)=>{
+    if (isAuthenticated){
+        res.render("account")
+    }else{
+        res.redirect("signin")
+    }
+})
+
+
+
+ User.find()
+        .sort({ "post.date": -1 })  
+            .then((datas)=>{
+                let posts=[]
+                for (let i=0; i<datas.length; i++){
+                    posts.push(datas[i].post[i])
+                }
+                res.render( "home", {posts:posts, userData:datas[0].userName}) 
+            })
+            .catch((err)=>{
+                console.log(err)
+            })

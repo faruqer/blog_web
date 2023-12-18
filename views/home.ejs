@@ -1,21 +1,22 @@
 <%- include("header", { pageTitle: "Home page" }) %>
-<h1>Well Come <span class="user-name"><%= userData %></span></h1>
+<h1>Well Come <span class="user-name"><%= userName %></span></h1>
 <div class="container">
     <section class="main-content">
         <% for (let i=0; i<posts.length; i++){ %>
-            <article class="post-card">
-                <div class="post-header">
-                    <div class="author-info">
-                        <img src="defaultPic.jpg" class="defaultPic" alt="profile pic">
-                        <p class="author-name"><%= posts[i].author %></p>
-                        <h2 class="post-title"><%= posts[i].title %></h2>
+            <% for (let j=0; j<posts[i].length; j++){ %>
+                <article class="post-card">
+                    <div class="post-header">
+                        <div class="author-info">
+                            <img src="defaultPic.jpg" class="defaultPic" alt="profile pic">
+                            <h2 class="post-title"><%= posts[i][j].title %></h2>
+                        </div>
                     </div>
-                </div>
-                <p class="post-content"><%= posts[i].content %></p>
-                <div class="date-info">
-                    <p class="post-date"><%= posts[i].date %></p>
-                </div>
-            </article>
+                    <p class="post-content"><%= posts[i][j].content %></p>
+                    <div class="date-info">
+                        <p class="post-date"><%= posts[i][j].date %></p>
+                    </div>
+                </article>
+            <% } %>
         <% } %>
     </section>
 
