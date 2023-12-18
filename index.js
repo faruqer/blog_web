@@ -5,13 +5,14 @@ const mongoose = require("mongoose");
 
 
 const app = express()
-mongoose.connect("mongodb+srv://faruq:faruq120910@cluster0.qnzsgnz.mongodb.net/userDB", {useNewUrlParser: true})
+mongoose.connect("mongodb+srv://faruq:faruq120910@cluster0.qnzsgnz.mongodb.net/userDataDB", {useNewUrlParser: true})
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'))
 
 
 const postSchema = new mongoose.Schema({
+    title:String,
     content: String,
   });
 
@@ -121,19 +122,34 @@ app.post("/signin", (req, res) => {
 })
 
 app.get("/post", (req, res)=>{
-
-    
-    res.render("post")
-    
+    if(isAuthenticated){
+        res.render("post")
+    }else{
+        res.redirect("/signin")
+    } 
 })
 
 app.post("/post", (req, res)=>{
-    const newPost = new Post ({
-        content:req.body.post
-    })
-    newPost.save()  
 
+    const newPost = ({
+        title: req.body.title,
+        content: req.body.content
+    })
+    User.findOne({userName:currentUser})
+    .then(user=>{
+        if (user){
+            user.posts.push(newPost)
+            user.save()
+            res.redirect("/home") 
+        }else{
+            return null
+        }
+    })
+    .catch(err=>{
+        console.log(err)
+    }) 
 })
+
 
 app.listen(4040, () => {
     console.log(`Server running on port 4040.`)

@@ -1,7 +1,8 @@
 <%- include ("header", {pageTitle: 'Post page'}) %>
 
     <form action="/post" method="post">
-        <input type="textarea", name="post", placeholder="Put your post here">
+        <input type="text" name="title" placeholder="title"><br>
+        <textarea name="content" cols="30" rows="10"></textarea>
         <button type="submit">POST</button>
     </form>
 
