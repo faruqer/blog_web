@@ -18,7 +18,7 @@ const postSchema = new mongoose.Schema({
     content: String,
     date: {
         type: String,
-        default: moment().tz('America/New_York').format('HH:mm'),
+        default: moment().tz('Ethiopia/Addis_Ababa').format('HH:mm'),
     }
   });
 
@@ -73,6 +73,15 @@ app.get("/home", (req, res)=>{
     }
 })
 
+app.get("/account", (req, res)=>{
+    if (isAuthenticated){
+        res.render("account")
+    }else{
+        res.redirect("signin")
+    }
+})
+
+
 app.post("/signup", (req, res) => {
     const userName = req.body.userName
     const email = req.body.email
@@ -107,6 +116,7 @@ app.post("/signup", (req, res) => {
 })
 
 
+
 app.post("/signin", (req, res) => {
     const userName = req.body.uname
     const password = req.body.password
@@ -130,7 +140,15 @@ app.post("/signin", (req, res) => {
 
 app.get("/post", (req, res)=>{
     if(isAuthenticated){
-        res.render("post")
+        let posts=[]
+        User.findOne({userName:currentUser})
+            .then(data=>{
+                data.posts.forEach(post=>{
+                    posts.push(post)
+                })
+                res.render("post", {posts:posts}) 
+            })
+           
     }else{
         res.redirect("/signin")
     } 
@@ -158,6 +176,15 @@ app.post("/post", (req, res)=>{
     }) 
 })
 
+app.post("/update_post", (req, res)=>{
+    const editId=req.body.edit
+    const deleteId=req.body.delete
+    console.log(editId, req.body.edit)
+    // if (editId){
+    //     Post.updateMany({_id: editId},{$set: {title:newTitle, content:newContent}})
+    // }
+
+})
 
 app.listen(4040, () => {
     console.log(`Server running on port 4040.`)

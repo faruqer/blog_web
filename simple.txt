@@ -38,13 +38,4 @@ app.get("/history", (req, res)=>{
     }
 })
 
-app.get("/account", (req, res)=>{
-    if (isAuthenticated){
-        res.render("account")
-    }else{
-        res.redirect("signin")
-    }
-})
 
-sole.log(err)
-            })
