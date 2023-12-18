@@ -4,7 +4,6 @@ const mongoose = require("mongoose");
 const moment = require('moment-timezone');
 
 
-
 const app = express()
 mongoose.connect("mongodb+srv://faruq:faruq120910@cluster0.qnzsgnz.mongodb.net/userDataDB", {useNewUrlParser: true})
 app.set('view engine', 'ejs')
@@ -116,7 +115,6 @@ app.post("/signup", (req, res) => {
 })
 
 
-
 app.post("/signin", (req, res) => {
     const userName = req.body.uname
     const password = req.body.password
@@ -176,15 +174,6 @@ app.post("/post", (req, res)=>{
     }) 
 })
 
-app.post("/update_post", (req, res)=>{
-    const editId=req.body.edit
-    const deleteId=req.body.delete
-    console.log(editId, req.body.edit)
-    // if (editId){
-    //     Post.updateMany({_id: editId},{$set: {title:newTitle, content:newContent}})
-    // }
-
-})
 
 app.listen(4040, () => {
     console.log(`Server running on port 4040.`)

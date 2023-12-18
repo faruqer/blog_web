@@ -7,21 +7,4 @@
         <button type="submit">POST</button>
     </form>
 </div>
-<h2>Want to edit your past posts?</h2>
-
-<div>
-    <% for (let i = 0; i < posts.length; i++) { %>
-        <form action="/update_post" method="post">
-            <div contentEditable="true">
-                <textarea name="change" id="" cols="30" rows="10" value="<%= posts[i]._id %>">
-                    <%= posts[i].title %>
-                    <%= posts[i].content %>
-                </textarea>
-            </div>
-            <button type="submit" name="edit" value="true">Save changes</button>
-            <button type="submit">Delet</button>
-        </form>
-    <% } %>
-</div>
-
 <%- include("footer") %>
