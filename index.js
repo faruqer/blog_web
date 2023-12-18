@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const moment = require('moment-timezone');
 
 
 
@@ -15,7 +16,10 @@ const postSchema = new mongoose.Schema({
     userName: String,
     title:String,
     content: String,
-    date: { type: Date, default: Date.now }
+    date: {
+        type: String,
+        default: moment().tz('America/New_York').format('HH:mm'),
+    }
   });
 
   const userDataSchema = new mongoose.Schema({
@@ -27,7 +31,10 @@ const postSchema = new mongoose.Schema({
         {
             title: String,
             content: String,
-            date: { type: Date, default: Date.now }
+            date: {
+                type: String,
+                default: moment().tz('America/New_York').format('HH:mm'),
+            }
         }
     ]
 });
@@ -37,7 +44,7 @@ const Post= mongoose.model("Post", postSchema)
 const User= mongoose.model("User", userDataSchema)
 
 let isAuthenticated=false
-let currentUser=""
+let currentUser="";
 
 app.get("/", (req, res)=>{
     res.render("root")
@@ -55,15 +62,12 @@ app.get("/home", (req, res)=>{
     if(isAuthenticated){
        Post.find().sort({"date": -1})
             .then((datas)=>{
-                console.log(datas)
                 let posts=[]
                 datas.forEach((data)=>{
                     posts.push(data)
                 })
-                console.log(posts)
                 res.render("home", {userName:currentUser, posts:posts})
             })
-        
     }else{
         res.redirect("/signin")
     }
