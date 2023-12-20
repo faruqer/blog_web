@@ -7,6 +7,7 @@ const moment = require('moment-timezone');
 const app = express()
 mongoose.connect("mongodb+srv://faruq:faruq120910@cluster0.qnzsgnz.mongodb.net/userDataDB", {useNewUrlParser: true})
 app.set('view engine', 'ejs')
+app.use(express.json())
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'))
 
@@ -174,7 +175,11 @@ app.post("/post", (req, res)=>{
     }) 
 })
 
-
+app.post("/updatePost", (req, res)=>{
+    const title= req.body.title
+    const content= req.body.content
+    
+})
 app.listen(4040, () => {
     console.log(`Server running on port 4040.`)
 })
