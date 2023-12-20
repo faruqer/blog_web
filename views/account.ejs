@@ -1,8 +1,53 @@
 <%- include ("header", {pageTitle: ' My Account page'}) %>
 
-    <div class="container">
-        <p>account page</p>
-        <a href="/">log out</a>
+<div class="container">
+    <p>account page</p>
+    <a href="/">log out</a>
+    <div>
+        <h2>Update personal info</h2>
+        <div style="background-color: rgb(204, 222, 238);">
+            <div contenteditable="true" id="username">
+                <p><%=userData[0]%></p>
+            </div>
+            <div contenteditable="true" id="email">
+                <p><%=userData[1]%></p>
+            </div>
+            <div contenteditable="true" id="password">
+                <p><%=userData[2]%></p>
+            </div>
+        </div>
+        <button onclick="submit()">Submit</button>
     </div>
+</div>
+
+<script>
+    const submit = function () {
+        const userName = document.getElementById("username").innerText;
+        const email = document.getElementById("email").innerText;
+        const password = document.getElementById("password").innerText;
+        const updatedData = {
+            userName: userName,
+            email: email,
+            password: password
+        };
+        fetch("/updateUserInfo", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(updatedData)
+        })
+        .then(response => {
+            if (!response.ok) {
+                document.querySelector(".container").innerHTML = "<p style='color: red'>Error occurred</p>";
+            } else {
+                document.querySelector(".container").innerHTML = "<p style='color: green'>Data updated</p>";
+            }
+        })
+        .catch(error => {
+            console.error('Fetch error:', error);
+        });
+    }
+</script>
 
 <%- include ("footer") %>

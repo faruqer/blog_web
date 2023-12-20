@@ -75,7 +75,14 @@ app.get("/home", (req, res)=>{
 
 app.get("/account", (req, res)=>{
     if (isAuthenticated){
-        res.render("account")
+        User.findOne({userName:currentUser})
+            .then(data=>{
+                const userData=[data.userName, data.email, data.password]
+                res.render("account", {userData:userData})
+            })
+            .catch(err=>{
+                console.log(err)
+            })
     }else{
         res.redirect("signin")
     }
@@ -179,6 +186,18 @@ app.post("/updatePost", (req, res)=>{
     const title= req.body.title
     const content= req.body.content
     
+})
+
+app.post("/updateUserInfo", (req, res)=>{
+    const {userName, email, password }=req.body
+    User.updateMany({userName:currentUser}, 
+                    {$set: 
+                        {
+                            userName:userName, 
+                            email:email, 
+                            password, password
+                        }
+                    })
 })
 app.listen(4040, () => {
     console.log(`Server running on port 4040.`)
