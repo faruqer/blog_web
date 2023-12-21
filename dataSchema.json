@@ -31,5 +31,8 @@
                     "date":""
                 }
           ]
+    },
+    {
+        "favouritePost":["reference_id of posts"]
     }
 ]
