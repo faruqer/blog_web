@@ -1,0 +1,35 @@
+[
+    {
+        "userInfo":
+        {
+            "fullname":"",
+            "username":"",
+            "email":"",
+            "password":"",
+            "profile":"",
+            "posts":["reference_id of posts", "reference_id of posts1"]
+        }
+    },
+    {
+        "postsInfo":
+        {
+            "postId":"",
+            "title":"",
+            "content":"",
+            "catagory":"",
+            "date":"",
+            "comments":["reference_id of comments"]
+        }   
+    },
+    {
+        "commentsInfo":
+            [
+                {
+                    "commentId":"",
+                    "username":"",
+                    "comment":"",
+                    "date":""
+                }
+          ]
+    }
+]
